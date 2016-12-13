@@ -1,0 +1,36 @@
+<html>
+
+  <body>
+    <div id="test">talk like yoda</div>
+    </div>
+    <script>
+
+      function httpGet(theUrl)
+      {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.setRequestHeader("X-Mashape-Key", "uwpNnRh7LWmshgPrF0I1VEf6DmIop18tQuEjsnMwcTnoaES0qs");
+        xmlHttp.setRequestHeader("Accept", "text/plain");
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+      }
+
+      var init = function() {
+          console.log("Initializing ...")
+
+          document.getElementById("test").addEventListener("click", function(){
+          var sentence = prompt("what do you want to say?");
+
+          //var yoda = httpGet("https://yoda.p.mashape.com/yoda?sentence=You+will+learn+how+to+speak+like+me+someday.++Oh+wait.");
+          var yoda = httpGet("https://yoda.p.mashape.com/yoda?sentence="+sentence);
+          alert(yoda);
+
+        });
+
+      }
+
+      window.addEventListener("load", init());
+
+    </script>
+  </body>
+</html>
