@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <style>
+
+
+      @keyframes intro-animation {
+        0% {background-color: grey;}
+        50% {background-color: white;}
+        100% {background-color: grey;}
+      }
+
+
+      #button:hover {
+        background-color: lightgreen;
+      }
+
+      #test:hover {
+        background-color: lightgreen;
+      }
+
+      div {
+        margin:auto;
+        text-align:center;
+      }
+
+      #button {
+
+        -webkit-transition: background-color 0.5s;
+
+        width:300px;
+        color:dark-grey;
+        border-style:dotted;
+        border-width:1px;
+      }
+
+      #intro {
+        padding: 70px 0;
+      }
+
+    </style>
+
+  </head>
+  </head>
+  <body>
+    <div id="intro"> see how this works! </div>
+    <div id="button">talk like yoda</div>
+    <br>
+    <div id="test">test</div>
+
+    <script>
+
+
+      function httpGet(theUrl)
+      {
+        var xhr = new XMLHttpRequest();
+        xhr.open( "GET", theUrl, true ); // true for asynchronous request
+        xhr.setRequestHeader("X-Mashape-Key", "uwpNnRh7LWmshgPrF0I1VEf6DmIop18tQuEjsnMwcTnoaES0qs");
+        xhr.setRequestHeader("Accept", "text/plain");
+        xhr.send( null );
+
+        xhr.onreadystatechange = processRequest;
+
+        //xhr.addEventListener("readystatechange", processRequest, false);
+
+        function processRequest(e)
+        {
+          //xhr.readyState == 4 - request has completed
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log("request done, processing ....");
+
+            alert("Yoda says: " + xhr.responseText);
+          }
+        }
+      }
+
+      function test() {
+        console.log("test");
+
+      }
+
+      var init = function() {
+          console.log("Initializing ...")
+          //var name = prompt("what is you name?");
+
+          document.getElementById("test").addEventListener("click", test);
+
+
+          document.getElementById("button").addEventListener("click", function(){
+          var sentence = prompt("what do you want to say " + name);
+
+          if(sentence != null) {
+            httpGet("https://yoda.p.mashape.com/yoda?sentence="+sentence);
+          }
+        });
+
+      }
+
+      window.addEventListener("load", init());
+
+    </script>
+  </body>
+</html>
