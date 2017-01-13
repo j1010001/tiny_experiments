@@ -45,7 +45,7 @@
     <div id="intro"> see how this works! </div>
     <div id="button">talk like yoda</div>
     <br>
-    <div id="test">test</div>
+    <div id="test">start spinner</div>
     <div id="counter"></div>
 
     <script>
@@ -68,20 +68,23 @@
           //xhr.readyState == 4 - request has completed
           if (xhr.readyState == 4 && xhr.status == 200) {
             console.log("request done, processing ....");
-
+            spinner.stop = true;
             alert("Yoda says: " + xhr.responseText);
           }
         }
       }
 
-      function test(stop, counter) {
-        console.log("test");
 
+      var spinner = new Object();
+      spinner.stop = false;
+      spinner.counter = 0;
+      spinner.spin = function() {
+        console.log("spin");
 
-        if(stop == false) {
-          console.log("counter: "+counter);
+        if(this.stop == false) {
+          console.log("counter: " + this.counter);
           counter++;
-          setTimeout(function() {test(stop, counter)}, 100);
+          setTimeout(function() {spinner.spin()}, 100);
 
           var element = document.getElementById("counter");
           switch(counter) {
@@ -103,8 +106,6 @@
               }
           }
         }
-
-
       }
 
       var init = function() {
@@ -112,7 +113,7 @@
           //var name = prompt("what is you name?");
 
           var stop = false;
-          document.getElementById("test").addEventListener("click", function() {test(stop, 1)} );
+          document.getElementById("test").addEventListener("click", function() {spinner.spin()} );
 
 
           document.getElementById("button").addEventListener("click", function(){
