@@ -45,82 +45,94 @@
     <div id="intro"> see how this works! </div>
     <div id="button">talk like yoda</div>
     <br>
-    <div id="test">start spinner</div>
-    <div id="counter"></div>
+
+    <div id="spinner"></div>
 
     <script>
 
 
-      function httpGet(theUrl)
+      function httpGet(theUrl, spinner)
       {
+
         var xhr = new XMLHttpRequest();
         xhr.open( "GET", theUrl, true ); // true for asynchronous request
         xhr.setRequestHeader("X-Mashape-Key", "uwpNnRh7LWmshgPrF0I1VEf6DmIop18tQuEjsnMwcTnoaES0qs");
         xhr.setRequestHeader("Accept", "text/plain");
         xhr.send( null );
-
         xhr.onreadystatechange = processRequest;
-
-        //xhr.addEventListener("readystatechange", processRequest, false);
 
         function processRequest(e)
         {
           //xhr.readyState == 4 - request has completed
           if (xhr.readyState == 4 && xhr.status == 200) {
             console.log("request done, processing ....");
-            spinner.stop = true;
+
             alert("Yoda says: " + xhr.responseText);
           }
+
+          spinner.stop();
+          spinner.clean();
         }
-      }
 
-
-      var spinner = new Object();
-      spinner.stop = false;
-      spinner.counter = 0;
-      spinner.spin = function() {
-        console.log("spin");
-
-        if(this.stop == false) {
-          console.log("counter: " + this.counter);
-          counter++;
-          setTimeout(function() {spinner.spin()}, 100);
-
-          var element = document.getElementById("counter");
-          switch(counter) {
-            case 1: {
-                element.innerHTML = "<p>|</p>";
-              }
-              break;
-            case 2: {
-                element.innerHTML = "<p> / </p>";
-              }
-              break;
-            case 3: {
-                element.innerHTML = "<p> -- </p>";
-              }
-              break;
-            default: {
-                element.innerHTML = "<p> \ </p>";
-                counter = 0;
-              }
-          }
-        }
       }
 
       var init = function() {
           console.log("Initializing ...")
-          //var name = prompt("what is you name?");
 
-          var stop = false;
-          document.getElementById("test").addEventListener("click", function() {spinner.spin()} );
+          var spinner = new Object();
+          spinner.stop_spinning = false;
+          spinner.counter = 0;
+          spinner.element = document.getElementById("spinner");
+
+          spinner.start = function () {
+            this.stop_spinning = false;
+            this.spin();
+          }
+          spinner.stop = function () {
+            this.stop_spinning = true;
+          }
+          spinner.clean = function () {
+            this.element.innerHTML = "";
+          }
+          spinner.spin = function() {
+            console.log("spin");
+
+            if(this.stop_spinning == false) {
+              console.log("counter: " + this.counter);
+              this.counter++;
+              setTimeout(function() {spinner.spin()}, 100);
+
+
+              switch(this.counter) {
+                case 1: {
+                    this.element.innerHTML = "<p>|</p>";
+                  }
+                  break;
+                case 2: {
+                    this.element.innerHTML = "<p> / </p>";
+                  }
+                  break;
+                case 3: {
+                    this.element.innerHTML = "<p> -- </p>";
+                  }
+                  break;
+                default: {
+                    this.element.innerHTML = "<p> \ </p>";
+                    this.counter = 0;
+                  }
+              }
+            }
+          }
+
+          //var name = prompt("what is you name?");
 
 
           document.getElementById("button").addEventListener("click", function(){
           var sentence = prompt("what do you want to say " + name);
 
           if(sentence != null) {
-            httpGet("https://yoda.p.mashape.com/yoda?sentence="+sentence);
+            spinner.start();
+            httpGet("https://yoda.p.mashape.com/yoda?sentence="+sentence, spinner);
           }
         });
 
