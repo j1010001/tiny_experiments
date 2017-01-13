@@ -46,6 +46,7 @@
     <div id="button">talk like yoda</div>
     <br>
     <div id="test">test</div>
+    <div id="counter"></div>
 
     <script>
 
@@ -73,8 +74,36 @@
         }
       }
 
-      function test() {
+      function test(stop, counter) {
         console.log("test");
+
+
+        if(stop == false) {
+          console.log("counter: "+counter);
+          counter++;
+          setTimeout(function() {test(stop, counter)}, 100);
+
+          var element = document.getElementById("counter");
+          switch(counter) {
+            case 1: {
+                element.innerHTML = "<p>|</p>";
+              }
+              break;
+            case 2: {
+                element.innerHTML = "<p> / </p>";
+              }
+              break;
+            case 3: {
+                element.innerHTML = "<p> -- </p>";
+              }
+              break;
+            default: {
+                element.innerHTML = "<p> \ </p>";
+                counter = 0;
+              }
+          }
+        }
+
 
       }
 
@@ -82,7 +111,8 @@
           console.log("Initializing ...")
           //var name = prompt("what is you name?");
 
-          document.getElementById("test").addEventListener("click", test);
+          var stop = false;
+          document.getElementById("test").addEventListener("click", function() {test(stop, 1)} );
 
 
           document.getElementById("button").addEventListener("click", function(){
