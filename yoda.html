@@ -2,19 +2,7 @@
   <head>
     <style>
 
-
-      @keyframes intro-animation {
-        0% {background-color: grey;}
-        50% {background-color: white;}
-        100% {background-color: grey;}
-      }
-
-
       #button:hover {
-        background-color: lightgreen;
-      }
-
-      #test:hover {
         background-color: lightgreen;
       }
 
@@ -24,9 +12,7 @@
       }
 
       #button {
-
         -webkit-transition: background-color 0.5s;
-
         width:300px;
         color:dark-grey;
         border-style:dotted;
@@ -64,16 +50,21 @@
         function processRequest(e)
         {
           //xhr.readyState == 4 - request has completed
-          if (xhr.readyState == 4 && xhr.status == 200) {
+          if (xhr.readyState == 4)
+          {
+            if(xhr.status == 200) {
             console.log("request done, processing ....");
 
             alert("Yoda says: " + xhr.responseText);
+            }
+            else {
+              alert("Sorry, Yoda is not there ... (his status is " + xhr.status + " )");
+            }
+
+            spinner.stop();
+            spinner.clean();
           }
-
-          spinner.stop();
-          spinner.clean();
         }
-
       }
 
       var init = function() {
@@ -124,8 +115,8 @@
             }
           }
 
+          // if you also wanted to show name in the popup ...
           //var name = prompt("what is you name?");
-
 
           document.getElementById("button").addEventListener("click", function(){
           var sentence = prompt("what do you want to say " + name);
