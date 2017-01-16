@@ -74,6 +74,7 @@
           spinner.stop_spinning = false;
           spinner.counter = 0;
           spinner.element = document.getElementById("spinner");
+          spinner.animation_chars = ["|", "/", "--", "\\"];
 
           spinner.start = function () {
             this.stop_spinning = false;
@@ -90,28 +91,15 @@
 
             if(this.stop_spinning == false) {
               console.log("counter: " + this.counter);
-              this.counter++;
-              setTimeout(function() {spinner.spin()}, 100);
 
-
-              switch(this.counter) {
-                case 1: {
-                    this.element.textContent = "|";
-                  }
-                  break;
-                case 2: {
-                    this.element.textContent = "/";
-                  }
-                  break;
-                case 3: {
-                    this.element.textContent = "--";
-                  }
-                  break;
-                default: {
-                    this.element.textContent = "\\";
-                    this.counter = 0;
-                  }
+              if(this.counter >= this.animation_chars.length ) {
+                this.counter = 0;
               }
+
+              this.element.textContent = this.animation_chars[this.counter];
+              this.counter++;
+
+              setTimeout(function() {spinner.spin()}, 100);
             }
           }
 
