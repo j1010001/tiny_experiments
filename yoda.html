@@ -96,19 +96,19 @@
 
               switch(this.counter) {
                 case 1: {
-                    this.element.innerHTML = "<p>|</p>";
+                    this.element.textContent = "|";
                   }
                   break;
                 case 2: {
-                    this.element.innerHTML = "<p> / </p>";
+                    this.element.textContent = "/";
                   }
                   break;
                 case 3: {
-                    this.element.innerHTML = "<p> -- </p>";
+                    this.element.textContent = "--";
                   }
                   break;
                 default: {
-                    this.element.innerHTML = "<p> \ </p>";
+                    this.element.textContent = "\\";
                     this.counter = 0;
                   }
               }
