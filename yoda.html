@@ -37,8 +37,7 @@
     <script>
 
 
-      function httpGet(theUrl, spinner)
-      {
+      function httpGet(theUrl, spinner) {
 
         var xhr = new XMLHttpRequest();
         xhr.open( "GET", theUrl, true ); // true for asynchronous request
@@ -68,36 +67,36 @@
       }
 
       var init = function() {
-          console.log("Initializing ...")
+          console.log("Initializing ...");
 
-          var spinner = new Object();
+          var spinner = {};
           spinner.stop_spinning = false;
           spinner.counter = 0;
           spinner.element = document.getElementById("spinner");
           spinner.animation_chars = ["|", "/", "--", "\\"];
 
           spinner.start = function () {
-            this.stop_spinning = false;
-            this.spin();
+            spinner.stop_spinning = false;
+            spinner.spin();
           }
           spinner.stop = function () {
-            this.stop_spinning = true;
+            spinner.stop_spinning = true;
           }
           spinner.clean = function () {
-            this.element.innerHTML = "";
+            spinner.element.innerHTML = "";
           }
           spinner.spin = function() {
             console.log("spin");
 
-            if(this.stop_spinning == false) {
-              console.log("counter: " + this.counter);
+            if(spinner.stop_spinning == false) {
+              console.log("counter: " + spinner.counter);
 
-              if(this.counter >= this.animation_chars.length ) {
-                this.counter = 0;
+              if(spinner.counter >= spinner.animation_chars.length ) {
+                spinner.counter = 0;
               }
 
-              this.element.textContent = this.animation_chars[this.counter];
-              this.counter++;
+              spinner.element.textContent = spinner.animation_chars[spinner.counter];
+              spinner.counter++;
 
               setTimeout(function() {spinner.spin()}, 100);
             }
