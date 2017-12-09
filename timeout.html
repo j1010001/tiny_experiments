@@ -1,0 +1,28 @@
+<body>
+
+<h1 id="text">loading...</h1>
+<input id="timer_input" type="text"></input>
+<button onClick="myfunct()">start</button>
+
+<script>
+
+var change_text = function () {
+  console.log("change_text");
+  document.getElementById("text").innerHTML = "Hello World!";
+}
+
+
+var myfunct = function() {
+  console.log("button pressed");
+  var timer = document.getElementById("timer_input").value * 1000;
+
+  //this works
+  setTimeout(function(){ document.getElementById("text").innerHTML = "Hello World!"; }, timer);
+  //why doesn't this work ???
+  //setTimeout(change_text(), timer);
+}
+
+</script>
+
+
+</body>
